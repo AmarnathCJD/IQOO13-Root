@@ -25,4 +25,3 @@ exact device kernel before any build or device testing.
 - `root.c` — root handoff and result reporting
 - `targets/iQOO-13/target.h` — target-specific configuration
 - `su_daemon.c` and `su_blob.S` — embedded daemon payload
-- `release/preload.so` — supplied prebuilt preload artifact
