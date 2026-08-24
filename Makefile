@@ -3,15 +3,15 @@ PROJECT ?= iQOO-13
 OUTDIR ?= build/$(PROJECT)/bin
 EMBEDDIR ?= build/embed
 
-TARGET_DIR := targets/$(PROJECT)
-TARGET_HEADER := $(TARGET_DIR)/target.h
+TARGET_DIR := .
+TARGET_HEADER := target.h
 
 ifeq ($(wildcard $(TARGET_HEADER)),)
 $(error unknown PROJECT=$(PROJECT), missing $(TARGET_HEADER))
 endif
 
 define pick_src
-$(if $(wildcard $(TARGET_DIR)/$(1)),$(TARGET_DIR)/$(1),$(1))
+$(1)
 endef
 
 EMBED_SU := $(EMBEDDIR)/su_daemon_aarch64_pie
@@ -80,7 +80,7 @@ COMMON_CFLAGS := -O2 -g0 -Wall -Wextra -I.
 PIE_CFLAGS := -fPIE -pie $(COMMON_CFLAGS)
 SO_CFLAGS := -fPIC $(COMMON_CFLAGS)
 WARN_CFLAGS := -Wno-unused-parameter -Wno-sign-compare -Wno-unused-function
-TARGET_CFLAGS := -DTARGET_CONFIG_H=\"targets/$(PROJECT)/target.h\"
+TARGET_CFLAGS := -DTARGET_CONFIG_H=\"target.h\"
 
 .PHONY: all preload clean info list-projects
 
@@ -116,7 +116,7 @@ info:
 	@echo "CORE_SRCS=$(CORE_SRCS)"
 
 list-projects:
-	@find targets -mindepth 2 -maxdepth 2 -name target.h -printf '%h\n' | sed 's#targets/##' | sort
+	@echo "iQOO-13"
 
 clean:
 	rm -rf build
